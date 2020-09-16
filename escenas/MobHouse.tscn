@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://MobHouse.gd" type="Script" id=1]
+[ext_resource path="res://minion-2020s2-interacciones-simples-master/slice33x.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+var mobScene = preload(\"res://Mob2.tscn\")
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 40.7224
+
+[node name="MobHouse" type="Area2D"]
+position = Vector2( 501.845, 324.654 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+script = SubResource( 1 )
+
+[node name="Mobs" type="Node2D" parent="."]
+position = Vector2( 0, 1.18922 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="DeleteMobs" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="SpawnMobs" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+[connection signal="timeout" from="DeleteMobs" to="." method="_on_DeleteMobs_timeout"]
+[connection signal="timeout" from="SpawnMobs" to="." method="_on_SpawnMobs_timeout"]
